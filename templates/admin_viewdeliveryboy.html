@@ -1,0 +1,62 @@
+  
+{% include 'adminheader.html'%}
+
+  <!--./ NAV BAR END -->
+    <div id="home" >
+        <div class="overlay">
+            <div class="container">
+                <div class="row ">
+                   
+                    <center>
+    <h1>View delivery boy</h1>
+    <table class="table" style="width: 500px;color: white">
+        <tr>
+            <th>Slno</th>
+            <th>Name</th>
+             <th>Place</th>
+            <th>phone</th>
+            <th>email</th>
+            <th>location</th>
+           
+
+            
+        </tr>
+        {% for row in data['deliveryboy']%}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['dname']}}</td>
+            <td>{{row['dplace']}}</td>
+            <td>{{row['dphone']}}</td>
+            <td>{{row['demail']}}</td>
+            
+
+
+        <td><a class="btn btn-primary" href="http://www.google.com/maps?q={{row['dlatitude'] }},{{row['dlongitude'] }}">Click Me</a></td>
+
+        
+
+
+
+
+
+            {% if row['usertype']=='pending'%}
+
+            <td><a class="btn btn-success" href="?action=accept&cid={{row['login_id']}}">Approve</a></td>
+            <td><a class="btn btn-success" href="?action=reject&cid={{row['login_id']}}">reject</a></td>
+            {% endif %}
+        </tr>
+
+        {%endfor %}
+    </table>
+</center>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <!--./ HOME SECTION END -->
+    {% include 'footer.html'%}

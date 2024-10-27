@@ -1,0 +1,51 @@
+{% include 'factoryheader.html' %}
+<!--./ NAV BAR END -->
+<div id="home">
+    <div class="overlay">
+        <div class="container">
+            <center>
+                <h1>Available Delivery Agents</h1>
+                <table class="table" style="width: 100%; max-width: 800px; color: white">
+                    <thead>
+                        <tr>
+                            <th>Sl. No</th>
+                            <th>Agent Name</th>
+                            <th>Phone No</th>
+                            <th>Location</th>
+                            <th>Distance (KM)</th>
+                            <th>Capacity Available</th>
+                            <th>image</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data['agents'] %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row['dname'] }}</td>
+                             <td>{{ row['dphone'] }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="http://www.google.com/maps?q={{ row['dlatitude'] }},{{ row['dlongitude'] }}" target="_blank">View Location</a>
+                            </td>
+                            <td>{{ row['distance'] }}</td>
+                            <td>{{ row['capacity'] }} </td>
+                            <td><img src="/{{ row['image'] }}"  width="100" height="100"> </td>
+                            <td>{{ row['status'] }}</td>
+                            <td>
+                                <a class="btn btn-success" href="assign?agent_id={{ row['deliveryboy_id'] }}&request_id={{ data['request_id'] }}">Assign</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No delivery agents available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </center>
+        </div>
+    </div>
+</div>
+<!--./ HOME SECTION END -->
+{% include 'footer.html' %}

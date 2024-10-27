@@ -1,0 +1,58 @@
+ {% include 'factoryheader.html'%}
+  <!--./ NAV BAR END -->
+    <div id="home" >
+        <div class="overlay">
+            <div class="container">
+
+
+<center>
+    <h1>View Request</h1>
+    <table class="table" style="width: 500px;color: white">
+        <tr>
+            <th>Slno</th>
+            <th>User</th>
+            <th>Place</th>
+            <th>Location</th>
+            <th>Waste type</th>
+            <th>Image</th>
+            <th>Status</th>
+            <th>Quantity</th>
+
+        </tr>
+        {% for row in data['types']%}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['uname']}}</td>
+             <td>{{row['uplace']}}</td>
+             <td><a class="btn btn-primary" href="http://www.google.com/maps?q={{row['ulatitude'] }},{{row['ulongitude'] }}">Click Me</a></td>
+              <td>{{row['types']}}</td>
+               
+            <td><img src="/{{row['image']}}" width="100" height="100"></td>
+            <td>{{row['status']}}</td>
+            <td>{{row['quantity']}}</td>
+
+            {% if row['status']=="pending"%}
+            <td><a class="btn btn-success" href="?action=accept&pid={{row['request_id']}}">Accept</a></td>
+            <td><a class="btn btn-success" href="?action=reject&pid={{row['request_id']}}">reject</a></td>
+            
+            {% endif %}
+             {% if row['status']=="Accept"%}
+             <td><a  class="btn btn-success" href="factory_viewdeliveryboy?rid={{row['request_id']}}&tid={{row['type_id']}}&lat={{row['ulatitude']}}&lon={{row['ulongitude']}}&qty={{row['quantity']}}">view nearest agent</a></td>
+               {% endif %}
+
+        </tr>
+
+        {%endfor %}
+    </table>
+</center>
+              
+                </div>
+
+            </div>
+
+        </div>
+
+
+   
+    <!--./ HOME SECTION END -->
+    {% include 'footer.html'%}

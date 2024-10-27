@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/mihome"
+    android:title="HOME"
+    android:icon="@drawable/ic_baseline_home_24">
+
+</item>
+
+
+<!--    <item android:id="@+id/mihomee"-->
+<!--        android:title="Category"-->
+<!--        android:icon="@drawable/ic_baseline_category_24">-->
+<!--    </item>-->
+    <item android:id="@+id/recipe"
+        android:title="view request"
+        android:icon="@drawable/ic_baseline_reorder_24">
+
+    </item>
+    <item android:id="@+id/add"
+        android:title="trackdeliveryboy"
+        android:icon="@drawable/ic_baseline_add_location_alt_24">
+
+    </item>
+<!--    <item android:id="@+id/favourite"-->
+<!--        android:title="myorders"-->
+<!--        android:icon="@drawable/ic_baseline_reorder_24">-->
+
+<!--    </item>-->
+    <item android:id="@+id/shop"
+        android:title="Logout"
+        android:icon="@drawable/ic_baseline_login_24">
+
+    </item>
+
+</menu>

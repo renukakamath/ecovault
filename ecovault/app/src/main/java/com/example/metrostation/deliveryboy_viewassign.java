@@ -1,0 +1,320 @@
+package com.example.metrostation;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.telephony.SmsManager;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.util.Random;
+
+public class deliveryboy_viewassign extends AppCompatActivity implements JsonResponse, AdapterView.OnItemClickListener {
+    SharedPreferences sh;
+    String[] uname, uplace, uphone, types, image, ass, date, uemail, ulatitude, ulongitude, assign_id, value;
+    public static String stat, aid,otp;
+    ListView l1;
+
+    String method,phno;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_deliveryboy_viewassign);
+
+
+        l1 = (ListView) findViewById(R.id.list);
+        l1.setOnItemClickListener(this);
+        sh = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        JsonReq JR = new JsonReq();
+        JR.json_response = (JsonResponse) deliveryboy_viewassign.this;
+        String q = "/viewassign?log_id=" + sh.getString("log_id", "");
+        q = q.replace(" ", "%20");
+        JR.execute(q);
+
+
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomview);
+
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.mihome);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.recipe:
+                        startActivity(new Intent(getApplicationContext(), deliveryboy_viewassign.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.mihome:
+                        startActivity(new Intent(getApplicationContext(), deliveryboyaddvehicle.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+//                    case R.id.favourite:
+//                        startActivity(new Intent(getApplicationContext(),manageshedule .class));
+//                        overridePendingTransition(0, 0);
+//                        return true;
+                    case R.id.shop:
+                        startActivity(new Intent(getApplicationContext(), login.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.add:
+                        startActivity(new Intent(getApplicationContext(),deliveryboy_viewpayment .class));
+                        overridePendingTransition(0, 0);
+                        return true;
+//                    case R.id.mihomee:
+//                        startActivity(new Intent(getApplicationContext(),viewclass .class));
+//                        overridePendingTransition(0, 0);
+//                        return true;
+
+
+                }
+                return false;
+            }
+
+        });
+    }
+
+
+    @Override
+    public void response(JSONObject jo) {
+        try {
+
+
+            method = jo.getString("method");
+
+
+            if (method.equalsIgnoreCase("viewassign")) {
+
+
+                String status = jo.getString("status");
+            Log.d("pearl", status);
+
+
+            if (status.equalsIgnoreCase("success")) {
+                JSONArray ja1 = (JSONArray) jo.getJSONArray("data");
+                uname = new String[ja1.length()];
+                uplace = new String[ja1.length()];
+                uphone = new String[ja1.length()];
+                types = new String[ja1.length()];
+                ass = new String[ja1.length()];
+                image = new String[ja1.length()];
+                date = new String[ja1.length()];
+                uemail = new String[ja1.length()];
+                image = new String[ja1.length()];
+                ulatitude = new String[ja1.length()];
+                ulongitude = new String[ja1.length()];
+                assign_id = new String[ja1.length()];
+                value = new String[ja1.length()];
+
+
+                for (int i = 0; i < ja1.length(); i++) {
+                    uname[i] = ja1.getJSONObject(i).getString("uname");
+                    uplace[i] = ja1.getJSONObject(i).getString("uplace");
+                    uphone[i] = ja1.getJSONObject(i).getString("uphone");
+                    types[i] = ja1.getJSONObject(i).getString("types");
+                    ass[i] = ja1.getJSONObject(i).getString("ass");
+                    date[i] = ja1.getJSONObject(i).getString("date");
+
+                    uemail[i] = ja1.getJSONObject(i).getString("uemail");
+                    ulatitude[i] = ja1.getJSONObject(i).getString("ulatitude");
+                    ulongitude[i] = ja1.getJSONObject(i).getString("ulongitude");
+                    assign_id[i] = ja1.getJSONObject(i).getString("assing_id");
+
+                    image[i] = ja1.getJSONObject(i).getString("image");
+
+                    value[i] = "name:" + uname[i] + "\nplace:" + uplace[i] + "\nphone:" + uphone[i] + "\ntype:" + types[i] + "\nstatus:" + ass[i] + "\ndate:" + date[i] ;
+
+                }
+//                ArrayAdapter<String> ar = new ArrayAdapter<String>(getApplicationContext(), R.layout.custtext, value);
+                Custimage1 ar = new Custimage1(this, uname, uplace, uphone, types, ass, date, image);
+                l1.setAdapter(ar);
+
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_LONG).show();
+                l1.setVisibility(View.GONE);
+            }
+
+            }    else if(method.equalsIgnoreCase("pickup")) {
+
+                String status = jo.getString("status");
+                Log.d("pearl", status);
+
+
+                if (status.equalsIgnoreCase("success")) {
+                    Toast.makeText(getApplicationContext(), "PickUp SUCCESSFULLY", Toast.LENGTH_LONG).show();
+//                    String rid=jo.getString("rid");
+
+
+
+                    Toast.makeText(getApplicationContext(),phno,Toast.LENGTH_LONG).show();
+
+                    otp= new DecimalFormat("0000").format(new Random().nextInt(9999));
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phno, null, "Your OTP is : " +otp, null, null);
+
+//					   Toast.makeText(getApplicationContext(),otp,Toast.LENGTH_LONG).show();
+//			           Toast.makeText(getApplicationContext()," You are Login Successfully!...,",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(),otp.class));
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), " failed.TRY AGAIN!!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            else if(method.equalsIgnoreCase("delivered")) {
+
+                String status = jo.getString("status");
+                Log.d("pearl", status);
+
+
+                if (status.equalsIgnoreCase("success")) {
+                    Toast.makeText(getApplicationContext(), "delivered SUCCESSFULLY", Toast.LENGTH_LONG).show();
+//                    String rid=jo.getString("rid");
+
+
+                    startActivity(new Intent(getApplicationContext(),deliveryboy_viewassign.class));
+
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), " failed.TRY AGAIN!!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+
+            else if(method.equalsIgnoreCase("collecting")) {
+
+                String status = jo.getString("status");
+                Log.d("pearl", status);
+
+
+                if (status.equalsIgnoreCase("success")) {
+                    Toast.makeText(getApplicationContext(), "collecting SUCCESSFULLY", Toast.LENGTH_LONG).show();
+//                    String rid=jo.getString("rid");
+
+
+startActivity(new Intent(getApplicationContext(),deliveryboy_viewassign.class));
+
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), " failed.TRY AGAIN!!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        stat = ass[i];
+        aid = assign_id[i];
+        phno=uphone[i];
+
+
+        if (stat.equalsIgnoreCase("assign")) {
+            final CharSequence[] items = {"collecting", "Cancel"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(deliveryboy_viewassign.this);
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+
+                    if (items[item].equals("collecting")) {
+
+                        JsonReq JR = new JsonReq();
+                        JR.json_response = (JsonResponse) deliveryboy_viewassign.this;
+
+                        String q = "/collecting?log_id=" + sh.getString("log_id", "") + "&aid=" + aid;
+                        q = q.replace(" ", "%20");
+                        JR.execute(q);
+
+
+                    }
+                }
+
+            });
+            builder.show();
+
+        } else if (stat.equalsIgnoreCase("collecting")) {
+            final CharSequence[] items = {"pickup"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(deliveryboy_viewassign.this);
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+
+                    if (items[item].equals("pickup")) {
+
+
+                        JsonReq JR = new JsonReq();
+                        JR.json_response = (JsonResponse) deliveryboy_viewassign.this;
+
+                        String q = "/pickup?log_id=" + sh.getString("log_id", "") + "&aid=" + aid;
+                        q = q.replace(" ", "%20");
+                        JR.execute(q);
+
+
+                    }
+                }
+
+            });
+            builder.show();
+        } else if (stat.equalsIgnoreCase("pickup")) {
+            final CharSequence[] items = {"delivered"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(deliveryboy_viewassign.this);
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+
+                    if (items[item].equals("delivered")) {
+
+
+                        JsonReq JR = new JsonReq();
+                        JR.json_response = (JsonResponse) deliveryboy_viewassign.this;
+
+                        String q = "/delivered?log_id=" + sh.getString("log_id", "") + "&aid=" + aid;
+                        q = q.replace(" ", "%20");
+                        JR.execute(q);
+
+
+                    }
+                }
+
+            });
+            builder.show();
+        }
+    }
+}

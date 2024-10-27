@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>ECOSAVE BOOTSTRAP ENVIRONMENT TEMPLATE</title>
+    <!-- Bootstrap Style -->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- Font-Awesome Style -->
+    <link href="/static/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Animation Style -->
+    <link href="/static/assets/css/animate.css" rel="stylesheet" />
+    <!-- Pretty Photo Style -->
+    <link href="/static/assets/css/prettyPhoto.css" rel="stylesheet" />
+    <!-- Google Font Style -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- Custom Style -->
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+  
+    <div class="navbar navbar-default navbar-fixed-top move-me ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="/static/assets/img/logo.png" class="navbar-brand-logo " alt="" />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse move-me">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">HOME</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+   
+    <div class="wrapper">
+        <div class="containers">
+            <div class="title"><h1>REGISTRATION</h1></div>
+            <div class="content">
+                <form id="registrationForm" method="post" enctype="multipart/form-data">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details"> Name</span>
+                            <input type="text" name="fname" id="firstname" placeholder="Enter your name" required minlength="3" maxlength="50" pattern="[A-Za-z\s]+">
+                            <span class="form-text">Name must be 3-50 characters long and contain only letters.</span>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Username</span>
+                            <input type="text" name="uname" id="username" placeholder="Enter your username" required minlength="3" maxlength="20">
+                            <span class="form-text">Username must be 3-20 characters long.</span>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Email</span>
+                            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                            <span class="form-text">Enter a valid email address.</span>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Phone Number</span>
+                            <input type="tel" name="phone" id="phoneno" placeholder="Enter your number" required pattern="^\d{10}$">
+                            <span class="form-text">Enter a valid 10-digit phone number.</span>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Photo</span>
+                            <input type="file" name="img" required  minlength="3">
+                            
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Place</span>
+                            <input type="text" name="place" id="place" placeholder="Enter your place" required minlength="3" maxlength="50" pattern="[A-Za-z\s]+">
+                            <span class="form-text">Place must be 3-50 characters long and contain only letters.</span>
+                        </div>
+                        
+                        <div class="input-box">
+                            <span class="details">Latitude</span>
+                            <input type="text" name="latitude" id="lat" placeholder="Enter your latitude" required minlength="3" maxlength="50">
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Longitude</span>
+                            <input type="text" name="longitude" id="lon" placeholder="Enter your longitude" required minlength="3" maxlength="50">
+                        </div>
+                        <div class="input-box">
+                            <a onclick="myFunction();" class="btn btn-info">View Map</a>
+
+
+                            <div id="dvMap" style="width: 600px; height: 400px"></div>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Password</span>
+                            <input type="password" name="pwd" id="password" placeholder="Enter your password" required minlength="6">
+                            <span class="form-text">Password must be at least 6 characters long and use special characters.</span>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Confirm Password</span>
+                            <input type="password" name="pwd_confirm" id="Confirmpassword" placeholder="Confirm your password" required>
+                            <span class="form-text">Passwords must match.</span>
+                        </div>
+
+
+
+                    </div>
+                    <div class="button">
+                        <input type="submit" name="submit" value="Register">
+                    </div>
+                    <a href="/">Already have an account?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Open Sans", sans-serif;
+            height: 100vh;
+            background: url('/static/assets/img/head.jpg') !important;
+            background-size: cover;
+            padding-top: 80px; /* Adjusted to accommodate fixed header */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: fixed; /* Makes the header fixed */
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Ensures the header stays above other content */
+        }
+
+        /* Wrapper Styles */
+        .wrapper {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+       
+        /* Container Styles */
+        .containers {
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Form Styles */
+        .content form .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        /* Input and Button Styles */
+        .user-details .input-box input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Invalid Styles */
+        .invalid {
+            border-color: #dc3545;
+        }
+
+        .form-text {
+            font-size: 12px;
+            color: #dc3545;
+            display: none;
+        }
+
+        input:invalid ~ .form-text {
+            display: block;
+        }
+    </style>
+
+    <script>
+        // Function to speak text
+        function speak(text) {
+            var synth = window.speechSynthesis;
+            var utterance = new SpeechSynthesisUtterance(text);
+            synth.speak(utterance);
+        }
+
+        // Add focus event listeners
+        document.querySelectorAll('.input-box input').forEach(input => {
+            input.addEventListener('focus', function() {
+                const inputId = this.id;
+                const focusMessages = {
+                    'firstname': 'Enter your first name',
+                    'username': 'Enter your username',
+                    'email': 'Enter your email',
+                    'phoneno': 'Enter your phone number',
+                    'place': 'Enter your place',
+                    'lat': 'Enter your latitude',
+                    'lon': 'Enter your longitude',
+                    'password': 'Enter your password',
+                    'Confirmpassword': 'Confirm your password'
+                };
+                speak(focusMessages[inputId]);
+            });
+        });
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+
+
+<script src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD3MPnSnyWwNmpnVEFkaddVvy_GWtxSejs&sensor=false"></script>
+    <script type="text/javascript">
+        // window.onload = function () {
+          function myFunction(){
+            var mapOptions = {
+                center: new google.maps.LatLng(9.9763482, 76.286272),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            google.maps.event.addListener(map, 'click', function (e) {
+                alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                document.getElementById('lat').value = e.latLng.lat();
+                document.getElementById('lon').value = e.latLng.lng();
+         document.getElementById("dvMap").style.display = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>
+    {% include 'footer.html'%}

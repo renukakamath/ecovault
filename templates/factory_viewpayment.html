@@ -1,0 +1,51 @@
+ {% include 'factoryheader.html'%}
+  <!--./ NAV BAR END -->
+    <div id="home" >
+        <div class="overlay">
+            <div class="container">
+
+
+<center>
+    <h1>View Assigned</h1>
+    <table class="table" style="width: 500px;color: white">
+        <tr>
+            <th>Slno</th>
+            <th>Delivery boy</th>
+            <th>Place</th>
+            <th>phone No</th>
+            <th>date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>total distance</th>
+
+        </tr>
+        {% for row in data['assign']%}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['dname']}}</td>
+             <td>{{row['dplace']}}</td>
+             <td>{{row['dphone']}}</td>
+             
+              <td>{{row['date']}}</td>
+               
+            <td>{{row['amount']}}</td>
+            <td>{{row['status']}}</td>
+            <td>{{row['total_distance']}} Km</td>
+
+          
+        </tr>
+
+        {%endfor %}
+    </table>
+</center>
+              
+                </div>
+
+            </div>
+
+        </div>
+
+
+   
+    <!--./ HOME SECTION END -->
+    {% include 'footer.html'%}
